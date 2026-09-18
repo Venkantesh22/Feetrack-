@@ -29,7 +29,7 @@ val keystoreProperties = Properties().apply {
     }
 }
 android {
-//    namespace = "com.feetrack.gym.room.tpipay"
+//    namespace = "com.myfoozzybusiness"
     namespace = "com.tpipay.feetrack_student_parent"
     compileSdk = flutter.compileSdkVersion
     ndkVersion = flutter.ndkVersion
@@ -54,7 +54,7 @@ android {
     }
 
     defaultConfig {
-//        applicationId = "com.feetrack.gym.room.tpipay"
+//        applicationId = "com.myfoozzybusiness"
         applicationId = "com.tpipay.feetrack_student_parent"
         minSdk = flutter.minSdkVersion
         targetSdk = flutter.targetSdkVersion
