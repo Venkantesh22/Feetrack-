@@ -18,6 +18,7 @@ import 'package:vlr/views/base/shimmer.dart';
 import 'package:vlr/views/base/custom_image.dart';
 import 'package:vlr/views/screens/dashboard/home_screen/All_home/gym_home/gym_home_screen.dart';
 import 'package:vlr/views/screens/dashboard/home_screen/all-category_screen/all_category_screen.dart';
+import 'package:vlr/views/screens/dashboard/home_screen/all_category_home/slider_card/slider_card.dart';
 import 'package:vlr/views/screens/dashboard/home_screen/all_category_home/widget/recent_paymant_section.dart';
 import 'package:vlr/views/screens/dashboard/home_screen/all_category_home/widget/waving_hand_animation.dart';
 import 'package:vlr/views/screens/notification/notification_screen.dart';
@@ -210,7 +211,8 @@ class _AllCategoryHomeScreenState extends State<AllCategoryHomeScreen> {
                                 return Row(
                                   children: [
                                     _buildWalletInfo(
-                                      icon: Icons.account_balance_wallet_rounded,
+                                      icon:
+                                          Icons.account_balance_wallet_rounded,
                                       amount: walletController.walletBalance,
                                       label: "Wallet",
                                       color: Colors.blueAccent,
@@ -218,7 +220,8 @@ class _AllCategoryHomeScreenState extends State<AllCategoryHomeScreen> {
                                     sizedBoxWidth(width: 12.w),
                                     _buildWalletInfo(
                                       icon: Icons.lock_clock_rounded,
-                                      amount: walletController.totalReservedAmount,
+                                      amount:
+                                          walletController.totalReservedAmount,
                                       label: "Reserved",
                                       color: Colors.orangeAccent,
                                     ),
@@ -449,31 +452,10 @@ class _AllCategoryHomeScreenState extends State<AllCategoryHomeScreen> {
                                           color: greyText3,
                                         ),
                                   ),
-                                  // TyperAnimatedText(
-                                  //   'Search dance centers...',
-                                  //   speed: const Duration(milliseconds: 70),
-
-                                  // ),
                                 ],
                               )
                             ],
-                          )
-                          // AbsorbPointer(
-                          // child: AppTextFieldWithHeading(
-                          //   controller: homeController.searchController,
-                          //   preFixWidget: Icon(
-                          //     Icons.search_sharp,
-                          //     color: primaryColor,
-                          //     size: 20.sp,
-                          //   ),
-                          //   bgColor: Colors.white,
-                          //   borderColor: Colors.transparent,
-                          //   borderRadius: 24,
-
-                          //   hindText: "Search gyms, PGs, dance centers...",
-                          // ),
-                          // ),
-                          ),
+                          )),
                     );
                   }),
                 ],
@@ -487,15 +469,8 @@ class _AllCategoryHomeScreenState extends State<AllCategoryHomeScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Welcome Section removed (now in AppBar)
-            sizedBoxHeight(height: 4),
-
-            // Split Banners (Fitness vs PG Stays)
-            _buildQuickActionCards(),
-            sizedBoxHeight(height: 16),
-
-            // Quick Access Section
-
+            //! Slider section top
+            const GymPgSlider(),
 
             // Categories Section with a modern layout
             Row(

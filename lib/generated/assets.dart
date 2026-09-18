@@ -54,6 +54,10 @@ class Assets {
   /// assets/images/GymImageLinear.png
   static const String imagesGymImageLinear = "assets/images/GymImageLinear.png";
 
+  /// Assets for imagesGymSlider
+  /// assets/images/gym-slider.png
+  static const String imagesGymSlider = "assets/images/gym-slider.png";
+
   /// Assets for imagesHomeProfile
   /// assets/images/home_profile.jpeg
   static const String imagesHomeProfile = "assets/images/home_profile.jpeg";
@@ -81,6 +85,10 @@ class Assets {
   /// Assets for imagesNoProfile
   /// assets/images/no-profile.png
   static const String imagesNoProfile = "assets/images/no-profile.png";
+
+  /// Assets for imagesPGSlider
+  /// assets/images/PG-slider.png
+  static const String imagesPGSlider = "assets/images/PG-slider.png";
 
   /// Assets for imagesPan
   /// assets/images/pan.png
