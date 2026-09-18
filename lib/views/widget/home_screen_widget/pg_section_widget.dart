@@ -99,7 +99,7 @@ class PgSectionWidget extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Image.asset(Assets.noHostel, height: 100.h),
+              Image.asset(Assets.imagesNoHotel, height: 100.h),
               sizedBoxHeight(height: 10.h),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -126,8 +126,7 @@ class PgSectionWidget extends StatelessWidget {
       itemCount: isLoading ? 4 : pgList.length,
       separatorBuilder: (_, __) => sizedBoxWidth(width: 14.w),
       itemBuilder: (context, index) {
-        ListingModel listingModel =
-            isLoading ? ListingModel() : pgList[index];
+        ListingModel listingModel = isLoading ? ListingModel() : pgList[index];
 
         return GestureDetector(
           onTap: () => onListingTap(listingModel),

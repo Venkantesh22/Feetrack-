@@ -22,6 +22,14 @@ class Assets {
   /// assets/images/cash-cirlce.png
   static const String imagesCashCirlce = "assets/images/cash-cirlce.png";
 
+  /// Assets for imagesFeetrackLogo
+  /// assets/images/feetrack_logo.jpg
+  static const String imagesFeetrackLogo = "assets/images/feetrack_logo.jpg";
+
+  /// Assets for imagesGym
+  /// assets/images/gym.png
+  static const String imagesGym = "assets/images/gym.png";
+
   /// Assets for imagesGymBanner
   /// assets/images/gym-banner.png
   static const String imagesGymBanner = "assets/images/gym-banner.png";
@@ -50,9 +58,25 @@ class Assets {
   /// assets/images/home_profile.jpeg
   static const String imagesHomeProfile = "assets/images/home_profile.jpeg";
 
+  /// Assets for imagesHostel
+  /// assets/images/hostel.PNG
+  static const String imagesHostel = "assets/images/hostel.PNG";
+
   /// Assets for imagesLogo
   /// assets/images/logo.png
   static const String imagesLogo = "assets/images/logo.png";
+
+  /// Assets for imagesNoDancer
+  /// assets/images/no_dancer.png
+  static const String imagesNoDancer = "assets/images/no_dancer.png";
+
+  /// Assets for imagesNoGym
+  /// assets/images/no_gym.png
+  static const String imagesNoGym = "assets/images/no_gym.png";
+
+  /// Assets for imagesNoHotel
+  /// assets/images/no_hotel.png
+  static const String imagesNoHotel = "assets/images/no_hotel.png";
 
   /// Assets for imagesNoProfile
   /// assets/images/no-profile.png
@@ -77,6 +101,10 @@ class Assets {
   /// Assets for imagesPlaceholder
   /// assets/images/placeholder.jpg
   static const String imagesPlaceholder = "assets/images/placeholder.jpg";
+
+  /// Assets for imagesPlannotfound
+  /// assets/images/plannotfound.png
+  static const String imagesPlannotfound = "assets/images/plannotfound.png";
 
   /// Assets for imagesProfileKyc
   /// assets/images/profile-kyc.png
@@ -301,18 +329,5 @@ class Assets {
   /// Assets for svgsWifi
   /// assets/svgs/wifi.svg
   static const String svgsWifi = "assets/svgs/wifi.svg";
-
-
-  static const String hometopGymImg = "assets/images/gym.png";
-  static const String hometopHostelImg = "assets/images/hostel.PNG";
-
-  static const String noGym = "assets/images/no_gym.png";
-  static const String noHostel = "assets/images/no_hotel.png";
-  static const String nodance = "assets/images/no_dancer.png";
-
-
-  static const String feetrackLogo = 'assets/images/feetrack_logo.jpg';
-
-  static const String planNotfound = 'assets/images/plannotfound.png';
 }
 

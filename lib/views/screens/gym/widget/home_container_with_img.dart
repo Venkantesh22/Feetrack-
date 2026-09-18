@@ -13,7 +13,7 @@ class HomeContainerWithImg extends StatelessWidget {
             child: _buildCard(
               title: "Our Best\nGym",
               subtitle: "Find top gyms near you",
-              imagePath: Assets.hometopGymImg,
+              imagePath: Assets.imagesGym,
             ),
           ),
           const SizedBox(width: 12),
@@ -21,7 +21,7 @@ class HomeContainerWithImg extends StatelessWidget {
             child: _buildCard(
               title: "Book PG\nHostel",
               subtitle: "Affordable stays nearby",
-              imagePath: Assets.hometopHostelImg,
+              imagePath: Assets.imagesHostel,
             ),
           ),
         ],

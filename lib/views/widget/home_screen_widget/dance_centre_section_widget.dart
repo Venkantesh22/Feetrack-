@@ -99,7 +99,7 @@ class DanceCentreSectionWidget extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Image.asset(Assets.nodance, height: 100.h),
+              Image.asset(Assets.imagesNoDancer, height: 100.h),
               sizedBoxHeight(height: 10.h),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
