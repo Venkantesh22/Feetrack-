@@ -3,7 +3,6 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import 'package:vlr/services/constants.dart';
 import 'package:vlr/views/base/custom_image.dart';
 import 'package:vlr/views/screens/dashboard/home_screen/all_category_home/slider_card/slider_card_widget/gym/gym_feature_card.dart';
 

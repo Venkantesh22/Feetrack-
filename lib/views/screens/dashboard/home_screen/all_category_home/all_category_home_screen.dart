@@ -153,14 +153,14 @@ class _AllCategoryHomeScreenState extends State<AllCategoryHomeScreen> {
     return Scaffold(
       backgroundColor: const Color(0xFFF3F6FC), // Soft, high-end background
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(215.h),
+        preferredSize: Size.fromHeight(160.h),
         child:
             GetBuilder<PermissionController>(builder: (permissionController) {
           return AppBar(
             backgroundColor: Colors.transparent,
             elevation: 0,
             automaticallyImplyLeading: false,
-            toolbarHeight: 215.h,
+            toolbarHeight: 180.h,
             title: Padding(
               padding: EdgeInsets.symmetric(horizontal: 4.w),
               child: Column(
@@ -169,67 +169,133 @@ class _AllCategoryHomeScreenState extends State<AllCategoryHomeScreen> {
                   // Welcome Section (Greeting + Actions)
                   GetBuilder<AuthController>(builder: (authController) {
                     return Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                const WavingHand(size: 20),
-                                SizedBox(width: 6.w),
-                                CustomShimmer(
-                                  isLoading: authController.isLoading,
-                                  child: Text(
-                                    "Hii, ${capitalize(authController.userModel?.name ?? 'Guest')}",
-                                    style: Helper(context)
-                                        .textTheme
-                                        .titleMedium
-                                        ?.copyWith(
-                                          fontSize: 18.sp,
-                                          fontWeight: FontWeight.w800,
-                                          color: primaryColor,
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  const WavingHand(size: 20),
+                                  SizedBox(width: 6.w),
+                                  Flexible(
+                                    child: CustomShimmer(
+                                      isLoading: authController.isLoading,
+                                      child: Text(
+                                        "Hii, ${capitalize(authController.userModel?.name ?? 'Guest')}",
+                                        style: Helper(context)
+                                            .textTheme
+                                            .titleMedium
+                                            ?.copyWith(
+                                              fontSize: 18.sp,
+                                              fontWeight: FontWeight.w800,
+                                              color: primaryColor,
+                                            ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              // Text(
+                              //   "Welcome back to FeeTrack",
+                              //   style: Helper(context)
+                              //       .textTheme
+                              //       .bodyMedium
+                              //       ?.copyWith(
+                              //         fontSize: 12.sp,
+                              //         color: greyText3,
+                              //       ),
+                              // ),
+                              // sizedBoxHeight(height: 4),
+                              // GetBuilder<WalletController>(
+                              //   builder: (walletController) {
+                              //     return Row(
+                              //       children: [
+                              //         _buildWalletInfo(
+                              //           icon:
+                              //               Icons.account_balance_wallet_rounded,
+                              //           amount: walletController.walletBalance,
+                              //           label: "Wallet",
+                              //           color: Colors.blueAccent,
+                              //         ),
+                              //         sizedBoxWidth(width: 12.w),
+                              //         _buildWalletInfo(
+                              //           icon: Icons.lock_clock_rounded,
+                              //           amount:
+                              //               walletController.totalReservedAmount,
+                              //           label: "Reserved",
+                              //           color: Colors.orangeAccent,
+                              //         ),
+                              //       ],
+                              //     );
+                              //   },
+                              // ),
+
+                              //! --
+                              SizedBox(height: 7.h),
+
+                              // Location Selector Row
+                              InkWell(
+                                onTap: () =>
+                                    fetchLocation(permissionController),
+                                borderRadius: BorderRadius.circular(20),
+                                child: Container(
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 10.w, vertical: 6.h),
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(20),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.black
+                                            .withValues(alpha: 0.04),
+                                        blurRadius: 10,
+                                        offset: const Offset(0, 2),
+                                      )
+                                    ],
+                                  ),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Icon(
+                                        Icons.location_on_rounded,
+                                        color: primaryColor,
+                                        size: 18.sp,
+                                      ),
+                                      SizedBox(width: 6.w),
+                                      Expanded(
+                                        child: Text(
+                                          permissionController.address ??
+                                              (permissionController
+                                                      .locationFetched
+                                                  ? "Location Found"
+                                                  : "Select Location"),
+                                          style: Helper(context)
+                                              .textTheme
+                                              .bodyLarge
+                                              ?.copyWith(
+                                                fontSize: 13.sp,
+                                                fontWeight: FontWeight.w700,
+                                                color: blackText1,
+                                              ),
+                                          maxLines: 1,
+                                          overflow: TextOverflow.ellipsis,
                                         ),
+                                      ),
+                                      SizedBox(width: 4.w),
+                                      Icon(
+                                        Icons.keyboard_arrow_down_rounded,
+                                        color: greyText3,
+                                        size: 16.sp,
+                                      ),
+                                    ],
                                   ),
                                 ),
-                              ],
-                            ),
-                            Text(
-                              "Welcome back to FeeTrack",
-                              style: Helper(context)
-                                  .textTheme
-                                  .bodyMedium
-                                  ?.copyWith(
-                                    fontSize: 12.sp,
-                                    color: greyText3,
-                                  ),
-                            ),
-                            sizedBoxHeight(height: 4),
-                            GetBuilder<WalletController>(
-                              builder: (walletController) {
-                                return Row(
-                                  children: [
-                                    _buildWalletInfo(
-                                      icon:
-                                          Icons.account_balance_wallet_rounded,
-                                      amount: walletController.walletBalance,
-                                      label: "Wallet",
-                                      color: Colors.blueAccent,
-                                    ),
-                                    sizedBoxWidth(width: 12.w),
-                                    _buildWalletInfo(
-                                      icon: Icons.lock_clock_rounded,
-                                      amount:
-                                          walletController.totalReservedAmount,
-                                      label: "Reserved",
-                                      color: Colors.orangeAccent,
-                                    ),
-                                  ],
-                                );
-                              },
-                            ),
-                          ],
+                              ),
+                            ],
+                          ),
                         ),
                         Row(
                           children: [
@@ -337,63 +403,7 @@ class _AllCategoryHomeScreenState extends State<AllCategoryHomeScreen> {
                     );
                   }),
 
-                  sizedBoxHeight(height: 12),
-
-                  // Location Selector Row
-                  InkWell(
-                    onTap: () => fetchLocation(permissionController),
-                    borderRadius: BorderRadius.circular(20),
-                    child: Container(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 10.w, vertical: 6.h),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(20),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withValues(alpha: 0.04),
-                            blurRadius: 10,
-                            offset: const Offset(0, 2),
-                          )
-                        ],
-                      ),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Icon(
-                            Icons.location_on_rounded,
-                            color: primaryColor,
-                            size: 18.sp,
-                          ),
-                          SizedBox(width: 6.w),
-                          Expanded(
-                            child: Text(
-                              permissionController.address ??
-                                  (permissionController.locationFetched
-                                      ? "Location Found"
-                                      : "Select Location"),
-                              style:
-                                  Helper(context).textTheme.bodyLarge?.copyWith(
-                                        fontSize: 13.sp,
-                                        fontWeight: FontWeight.w700,
-                                        color: blackText1,
-                                      ),
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          ),
-                          SizedBox(width: 4.w),
-                          Icon(
-                            Icons.keyboard_arrow_down_rounded,
-                            color: greyText3,
-                            size: 16.sp,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-
-                  sizedBoxHeight(height: 12),
+                  sizedBoxHeight(height: 14.h),
 
                   // Search bar
                   GetBuilder<HomeController>(builder: (homeController) {
@@ -471,6 +481,7 @@ class _AllCategoryHomeScreenState extends State<AllCategoryHomeScreen> {
           children: [
             //! Slider section top
             const GymPgSlider(),
+            sizedBoxHeight(height: 14.h),
 
             // Categories Section with a modern layout
             Row(
@@ -575,17 +586,19 @@ class _AllCategoryHomeScreenState extends State<AllCategoryHomeScreen> {
                 },
               );
             }),
-            sizedBoxHeight(height: 20),
-            Text(
-              "Quick Actions",
-              style: Helper(context).textTheme.titleMedium?.copyWith(
-                    fontSize: 16.sp,
-                    color: blackText1,
-                    fontWeight: FontWeight.w800,
-                  ),
-            ),
-            sizedBoxHeight(height: 10),
-            _buildQuickAccessSection(),
+
+            // sizedBoxHeight(height: 20),
+
+            // Text(
+            //   "Quick Actions",
+            //   style: Helper(context).textTheme.titleMedium?.copyWith(
+            //         fontSize: 16.sp,
+            //         color: blackText1,
+            //         fontWeight: FontWeight.w800,
+            //       ),
+            // ),
+            // sizedBoxHeight(height: 10),
+            // _buildQuickAccessSection(),
             sizedBoxHeight(height: 20),
             // Modern Banner Carousel
 
@@ -749,26 +762,32 @@ class _AllCategoryHomeScreenState extends State<AllCategoryHomeScreen> {
       bgColor: itemColor.withValues(alpha: 0.08),
       size: 44.w,
       image: categoryModel.iconUrl != null && categoryModel.iconUrl!.isNotEmpty
-          ? CachedNetworkImage(
-              imageUrl: categoryModel.iconUrl!,
+          ? Container(
               width: 44.w,
               height: 44.w,
-              fit: BoxFit.cover,
-              placeholder: (context, url) => Center(
-                child: SizedBox(
-                  width: 12.sp,
-                  height: 12.sp,
-                  child: CircularProgressIndicator(
-                    strokeWidth: 2,
-                    color: itemColor,
+              clipBehavior: Clip.antiAlias,
+              decoration: const BoxDecoration(shape: BoxShape.circle),
+              child: CachedNetworkImage(
+                imageUrl: categoryModel.iconUrl!,
+                width: 44.w,
+                height: 44.w,
+                fit: BoxFit.cover,
+                placeholder: (context, url) => Center(
+                  child: SizedBox(
+                    width: 12.sp,
+                    height: 12.sp,
+                    child: CircularProgressIndicator(
+                      strokeWidth: 2,
+                      color: itemColor,
+                    ),
                   ),
                 ),
-              ),
-              errorWidget: (context, url, error) => Center(
-                child: Icon(
-                  getBootstrapIcon(categoryModel.icon),
-                  color: itemColor,
-                  size: 20.sp,
+                errorWidget: (context, url, error) => Center(
+                  child: Icon(
+                    getBootstrapIcon(categoryModel.icon),
+                    color: itemColor,
+                    size: 20.sp,
+                  ),
                 ),
               ),
             )
