@@ -2,8 +2,14 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:vlr/controllers/home_controller.dart';
+import 'package:vlr/controllers/permission_controller.dart';
+import 'package:vlr/data/models/category_model/category_model.dart';
+import 'package:vlr/services/constants.dart';
 
 import 'package:vlr/views/base/custom_image.dart';
+import 'package:vlr/views/screens/dashboard/home_screen/All_home/gym_home/gym_home_screen.dart';
 import 'package:vlr/views/screens/dashboard/home_screen/all_category_home/slider_card/slider_card_widget/gym/gym_feature_card.dart';
 
 class GymCategoryCard extends StatefulWidget {
@@ -68,7 +74,6 @@ class _GymCategoryCardState extends State<GymCategoryCard>
           ),
           weight: 78,
         ),
-
         TweenSequenceItem<double>(
           tween: Tween<double>(
             begin: 1.15,
@@ -200,6 +205,52 @@ class _GymCategoryCardState extends State<GymCategoryCard>
     }
   }
 
+  void _onCategorySelected(String categoryId) async {
+    final homeController = Get.find<HomeController>();
+    final permissionController = Get.find<PermissionController>();
+
+    final category = homeController.categoryModelList.firstWhere(
+      (element) => element.id.toString() == categoryId,
+      orElse: () => CategoryModel(
+        id: int.tryParse(categoryId),
+        name: categoryId == "1"
+            ? "Gym"
+            : (categoryId == "3"
+                ? "PG / Hostel"
+                : (categoryId == "2" ? "Dance Center" : "Services")),
+      ),
+    );
+
+    homeController.updateSelectCategoryModel(category);
+    await fetchLocation(permissionController);
+
+    if (!mounted) return;
+    navigate(context: context, page: const GymHomeScreen());
+  }
+
+  Future<void> fetchLocation(PermissionController permissionController) async {
+    bool success =
+        await permissionController.requestLocationPermissionAndFetch(context);
+
+    if (success && permissionController.locationFetched) {
+      final homeController = Get.find<HomeController>();
+
+      // Refresh listings with the new location coordinates
+      homeController.fetchGymListing(
+        latitude: permissionController.latitude,
+        longitude: permissionController.longitude,
+      );
+      homeController.fetchDanceListing(
+        latitude: permissionController.latitude,
+        longitude: permissionController.longitude,
+      );
+      homeController.fetchPgHostelListing(
+        latitude: permissionController.latitude,
+        longitude: permissionController.longitude,
+      );
+    }
+  }
+
   @override
   void dispose() {
     _mainController.dispose();
@@ -216,15 +267,12 @@ class _GymCategoryCardState extends State<GymCategoryCard>
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-
       margin: EdgeInsets.symmetric(
         horizontal: 4.w,
       ),
-
       padding: EdgeInsets.all(
         10.w,
       ),
-
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(
           24.r,
@@ -251,7 +299,6 @@ class _GymCategoryCardState extends State<GymCategoryCard>
           ),
         ],
       ),
-
       child: Column(
         children: [
           // ====================================================
@@ -260,15 +307,12 @@ class _GymCategoryCardState extends State<GymCategoryCard>
 
           Expanded(
             flex: 2,
-
             child: ClipRRect(
               borderRadius: BorderRadius.circular(
                 20.r,
               ),
-
               child: SizedBox(
                 width: double.infinity,
-
                 child: AnimatedBuilder(
                   animation: Listenable.merge([
                     _mainController,
@@ -284,8 +328,7 @@ class _GymCategoryCardState extends State<GymCategoryCard>
                     // ------------------------------------------
 
                     final double floatY =
-                        widget.isActive &&
-                                _mainController.isCompleted
+                        widget.isActive && _mainController.isCompleted
                             ? _floatAnimation.value
                             : 0.0;
 
@@ -294,28 +337,22 @@ class _GymCategoryCardState extends State<GymCategoryCard>
                     // ------------------------------------------
 
                     final double scale =
-                        widget.isActive
-                            ? _scaleAnimation.value
-                            : 1.0;
+                        widget.isActive ? _scaleAnimation.value : 1.0;
 
                     // ------------------------------------------
                     // FLIP
                     // ------------------------------------------
 
                     final double rotateX =
-                        widget.isActive
-                            ? _rotateXAnimation.value
-                            : 0.0;
+                        widget.isActive ? _rotateXAnimation.value : 0.0;
 
                     return Transform.translate(
                       offset: Offset(
                         0,
                         floatY,
                       ),
-
                       child: Transform(
                         alignment: Alignment.center,
-
                         transform: Matrix4.identity()
                           // Perspective
                           ..setEntry(
@@ -328,10 +365,8 @@ class _GymCategoryCardState extends State<GymCategoryCard>
                           ..rotateX(
                             rotateX,
                           ),
-
                         child: Transform.scale(
                           scale: scale,
-
                           child: child,
                         ),
                       ),
@@ -363,15 +398,11 @@ class _GymCategoryCardState extends State<GymCategoryCard>
 
           Expanded(
             flex: 4,
-
             child: GridView.count(
               crossAxisCount: 2,
               crossAxisSpacing: 7.w,
               mainAxisSpacing: 7.h,
-
-              physics:
-                  const NeverScrollableScrollPhysics(),
-
+              physics: const NeverScrollableScrollPhysics(),
               children: const [
                 GymFeatureCard(
                   icon: Icons.fitness_center_rounded,
@@ -380,7 +411,6 @@ class _GymCategoryCardState extends State<GymCategoryCard>
                   iconColor: Color(0xFF1565E8),
                   backgroundColor: Color(0xFFEAF2FF),
                 ),
-
                 GymFeatureCard(
                   icon: Icons.directions_run_rounded,
                   title: "Cardio",
@@ -388,7 +418,6 @@ class _GymCategoryCardState extends State<GymCategoryCard>
                   iconColor: Color(0xFF13B874),
                   backgroundColor: Color(0xFFE7FFF5),
                 ),
-
                 GymFeatureCard(
                   icon: Icons.person_rounded,
                   title: "Personal",
@@ -396,7 +425,6 @@ class _GymCategoryCardState extends State<GymCategoryCard>
                   iconColor: Color(0xFFFF8B00),
                   backgroundColor: Color(0xFFFFF2DF),
                 ),
-
                 GymFeatureCard(
                   icon: Icons.favorite_rounded,
                   title: "Nutrition",
@@ -416,53 +444,48 @@ class _GymCategoryCardState extends State<GymCategoryCard>
           // BUTTON
           // ====================================================
 
-          SizedBox(
-            width: double.infinity,
-            height: 38.h,
-
-            child: ElevatedButton(
-              onPressed: () {
-                // Navigate to Gym screen
-              },
-
-              style: ElevatedButton.styleFrom(
-                backgroundColor:
-                    const Color(0xFF5E1BC7),
-                foregroundColor: Colors.white,
-                elevation: 0,
-
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(
-                    14.r,
-                  ),
-                ),
-              ),
-
-              child: Row(
-                mainAxisAlignment:
-                    MainAxisAlignment.center,
-
-                children: [
-                  Text(
-                    "Book Workout",
-
-                    style: TextStyle(
-                      fontSize: 13.sp,
-                      fontWeight: FontWeight.w700,
+          GetBuilder<HomeController>(
+            builder: (homeController) {
+              return SizedBox(
+                width: double.infinity,
+                height: 38.h,
+                child: ElevatedButton(
+                  onPressed: () {
+                    if (homeController.isLoading) return;
+                    _onCategorySelected("1");
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xFF5E1BC7),
+                    foregroundColor: Colors.white,
+                    elevation: 0,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(
+                        14.r,
+                      ),
                     ),
                   ),
-
-                  SizedBox(
-                    width: 7.w,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "Book Workout",
+                        style: TextStyle(
+                          fontSize: 13.sp,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                      SizedBox(
+                        width: 7.w,
+                      ),
+                      Icon(
+                        Icons.arrow_forward_rounded,
+                        size: 17.sp,
+                      ),
+                    ],
                   ),
-
-                  Icon(
-                    Icons.arrow_forward_rounded,
-                    size: 17.sp,
-                  ),
-                ],
-              ),
-            ),
+                ),
+              );
+            }
           ),
         ],
       ),
